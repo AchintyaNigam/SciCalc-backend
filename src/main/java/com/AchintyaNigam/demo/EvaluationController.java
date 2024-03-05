@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class EvaluationController {
 
 	@PostMapping("/evaluate")
-    public ApiResponse evaluateExpression(@RequestParam String expression) {
+    public ApiResponse evaluateExpression(@RequestParam String expression, @RequestParam boolean DEG) {
         try {
         	//!for '^' make sure the request has '%5E' instead!
-            double result = evaluate(expression);
+            double result = evaluate(expression, DEG);
             return new ApiResponse(result);
         } catch (Exception e) {
             return new ApiResponse("Error: Invalid expression");
         }
     }
 
-    private static double evaluate(String expression) {
+    private static double evaluate(String expression, boolean DEG) {
         Map<String, Double> allVariables = new HashMap<>();
         allVariables.put("pi", Math.PI);
         allVariables.put("e", Math.E);
@@ -36,6 +36,7 @@ public class EvaluationController {
         Function lnFunction = new Function("ln", 1) {
             @Override
             public double apply(double... args) {
+            	
                 return Math.log(args[0]);
             }
         };
@@ -81,6 +82,10 @@ public class EvaluationController {
         Function sinFunction = new Function("sin", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return Math.sin(Math.toRadians(args[0]));
+            	}
                 return Math.sin(args[0]);
             }
         };
@@ -88,6 +93,10 @@ public class EvaluationController {
         Function cosFunction = new Function("cos", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		return Math.cos(Math.toRadians(args[0]));
+            	}
                 return Math.cos(args[0]);
             }
         };
@@ -95,6 +104,10 @@ public class EvaluationController {
         Function tanFunction = new Function("tan", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		return Math.tan(Math.toRadians(args[0]));
+            	}
                 return Math.tan(args[0]);
             }
         };
@@ -102,6 +115,10 @@ public class EvaluationController {
         Function cosecFunction = new Function("cosec", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		return 1/Math.sin(Math.toRadians(args[0]));
+            	}
                 return 1/Math.sin(args[0]);
             }
         };
@@ -109,6 +126,10 @@ public class EvaluationController {
         Function secFunction = new Function("sec", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		return 1/Math.cos(Math.toRadians(args[0]));
+            	}
                 return 1/Math.cos(args[0]);
             }
         };
@@ -116,6 +137,10 @@ public class EvaluationController {
         Function cotFunction = new Function("cot", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		return 1/Math.tan(Math.toRadians(args[0]));
+            	}
                 return 1/Math.tan(args[0]);
             }
         };
@@ -123,6 +148,10 @@ public class EvaluationController {
         Function asinFunction = new Function("asin", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return Math.asin(Math.toRadians(args[0]));
+            	}
                 return Math.asin(args[0]);
             }
         };
@@ -130,6 +159,10 @@ public class EvaluationController {
         Function acosFunction = new Function("acos", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return Math.acos(Math.toRadians(args[0]));
+            	}
                 return Math.acos(args[0]);
             }
         };
@@ -137,6 +170,10 @@ public class EvaluationController {
         Function atanFunction = new Function("atan", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return Math.atan(Math.toRadians(args[0]));
+            	}
                 return Math.atan(args[0]);
             }
         };
@@ -144,6 +181,10 @@ public class EvaluationController {
         Function acosecFunction = new Function("acosec", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		return 1/Math.asin(Math.toRadians(args[0]));
+            	}
                 return 1/Math.asin(args[0]);
             }
         };
@@ -151,6 +192,10 @@ public class EvaluationController {
         Function asecFunction = new Function("asec", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		return 1/Math.acos(Math.toRadians(args[0]));
+            	}
                 return 1/Math.acos(args[0]);
             }
         };
@@ -158,6 +203,10 @@ public class EvaluationController {
         Function acotFunction = new Function("acot", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		return 1/Math.atan(Math.toRadians(args[0]));
+            	}
                 return 1/Math.atan(args[0]);
             }
         };
@@ -165,6 +214,10 @@ public class EvaluationController {
         Function sinhFunction = new Function("sinh", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return Math.sinh(Math.toRadians(args[0]));
+            	}
                 return Math.sinh(args[0]);
             }
         };
@@ -172,6 +225,10 @@ public class EvaluationController {
         Function coshFunction = new Function("cosh", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return Math.cosh(Math.toRadians(args[0]));
+            	}
                 return Math.cosh(args[0]);
             }
         };
@@ -179,6 +236,10 @@ public class EvaluationController {
         Function tanhFunction = new Function("tanh", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return Math.tanh(Math.toRadians(args[0]));
+            	}
                 return Math.tanh(args[0]);
             }
         };
@@ -186,6 +247,10 @@ public class EvaluationController {
         Function cosechFunction = new Function("cosech", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return 1/Math.sinh(Math.toRadians(args[0]));
+            	}
                 return 1/Math.sinh(args[0]);
             }
         };
@@ -193,6 +258,10 @@ public class EvaluationController {
         Function sechFunction = new Function("sech", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return 1/Math.cosh(Math.toRadians(args[0]));
+            	}
                 return 1/Math.cosh(args[0]);
             }
         };
@@ -200,6 +269,10 @@ public class EvaluationController {
         Function cothFunction = new Function("tanh", 1) {
             @Override
             public double apply(double... args) {
+            	if(DEG)
+            	{
+            		 return 1/Math.tanh(Math.toRadians(args[0]));
+            	}
                 return 1/Math.tanh(args[0]);
             }
         };
