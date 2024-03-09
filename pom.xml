@@ -45,6 +45,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>SciCalc-backend-0.0.1-SNAPSHOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
