@@ -3,6 +3,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
+RUN ls /target
 COPY --from=build /target/SciCalc-backend-0.0.1-SNAPSHOT.JAR SciCalc-backend.jar
 EXPOSE 8080
 ENTRYPOINT [ "java","-jar","SciCalc-backend" ]
