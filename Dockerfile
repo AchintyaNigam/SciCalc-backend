@@ -1,12 +1,8 @@
-# Build stage
-FROM maven:3.8.4 AS build
-WORKDIR /SciCalc-backend
+FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
-# Final stage
-FROM openjdk:17.0.2-jdk-slim
-WORKDIR /app
-COPY --from=build /SciCalc-backend/target/SciCalc-backend-0.0.1-SNAPSHOT.jar SciCalc-backend.jar
+FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/SciCalc-backend-0.0.1-SNAPSHOT.JAR SciCalc-backend.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "SciCalc-backend.jar"]
+ENTRYPOINT [ "java","-jar","SciCalc-backend" ]
